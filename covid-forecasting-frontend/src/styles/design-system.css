@@ -1,0 +1,374 @@
+/* ============================================
+   ДИЗАЙН-СИСТЕМА
+   Система прогнозирования эпидемиологических
+   показателей COVID-19
+   ============================================ */
+
+:root {
+  /* --- Основные цвета --- */
+  --color-primary: #1565C0;
+  --color-primary-dark: #0D47A1;
+  --color-primary-light: #E3F2FD;
+  --color-secondary: #00897B;
+
+  /* --- Фон и текст --- */
+  --color-surface: #FFFFFF;
+  --color-background: #F5F7FA;
+  --color-border: #E0E4E8;
+  --color-text-primary: #212121;
+  --color-text-secondary: #616161;
+
+  /* --- Эпидемиологические показатели --- */
+  --color-success: #2E7D32;
+  --color-warning: #F9A825;
+  --color-danger: #C62828;
+  --color-info: #0288D1;
+
+  /* --- Палитра для графиков --- */
+  --color-chart-red: #D32F2F;
+  --color-chart-orange: #F57C00;
+  --color-chart-amber: #FFA000;
+  --color-chart-green: #388E3C;
+  --color-chart-teal: #00796B;
+  --color-chart-blue: #1976D2;
+  --color-chart-purple: #7B1FA2;
+  --color-chart-gray: #546E7A;
+
+  /* --- Типографика --- */
+  --font-family-base: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  --font-family-mono: 'Roboto Mono', 'Courier New', monospace;
+
+  --font-size-h1: 32px;
+  --font-size-h2: 24px;
+  --font-size-h3: 20px;
+  --font-size-body1: 16px;
+  --font-size-body2: 14px;
+  --font-size-caption: 12px;
+  --font-size-metric: 28px;
+
+  --line-height-h1: 40px;
+  --line-height-h2: 32px;
+  --line-height-h3: 28px;
+  --line-height-body1: 24px;
+  --line-height-body2: 20px;
+  --line-height-caption: 16px;
+  --line-height-metric: 36px;
+
+  /* --- Отступы (8-точечная сетка) --- */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  /* --- Скругления --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-round: 50%;
+
+  /* --- Тени --- */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-dialog: 0 8px 24px rgba(0, 0, 0, 0.16);
+
+  /* --- Размеры --- */
+  --sidebar-width: 240px;
+  --sidebar-collapsed: 64px;
+  --topbar-height: 64px;
+}
+
+/* ============================================
+   БАЗОВЫЕ СТИЛИ
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body1);
+  line-height: var(--line-height-body1);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+}
+
+/* ============================================
+   ТИПОГРАФИКА
+   ============================================ */
+
+.text-h1 {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.text-h2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.text-h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.text-body1 {
+  font-size: var(--font-size-body1);
+  line-height: var(--line-height-body1);
+  color: var(--color-text-primary);
+}
+
+.text-body2 {
+  font-size: var(--font-size-body2);
+  line-height: var(--line-height-body2);
+  color: var(--color-text-secondary);
+}
+
+.text-caption {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+.text-numeric {
+  font-family: var(--font-family-mono);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.text-metric {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-metric);
+  line-height: var(--line-height-metric);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+/* ============================================
+   СЕМАНТИЧЕСКИЕ ЦВЕТА ДЛЯ ПОКАЗАТЕЛЕЙ
+   ============================================ */
+
+.metric-success { color: var(--color-success); }
+.metric-warning { color: var(--color-warning); }
+.metric-danger  { color: var(--color-danger); }
+.metric-info    { color: var(--color-info); }
+
+.bg-success { background-color: var(--color-success); color: #FFFFFF; }
+.bg-warning { background-color: var(--color-warning); color: #212121; }
+.bg-danger  { background-color: var(--color-danger);  color: #FFFFFF; }
+.bg-info    { background-color: var(--color-info);    color: #FFFFFF; }
+
+/* ============================================
+   КОМПОНЕНТЫ
+   ============================================ */
+
+/* Карточка */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-lg);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Metric Card — карточка метрики */
+.metric-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  min-height: 120px;
+}
+
+.metric-card__label {
+  font-size: var(--font-size-body2);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-card__value {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-metric);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+/* ============================================
+   МАКЕТ
+   ============================================ */
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  transition: width 0.3s ease;
+}
+
+.sidebar--collapsed {
+  width: var(--sidebar-collapsed);
+}
+
+.main-content {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content--expanded {
+  margin-left: var(--sidebar-collapsed);
+}
+
+.topbar {
+  height: var(--topbar-height);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-xl);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.page-content {
+  padding: var(--spacing-xl);
+  flex: 1;
+}
+
+/* ============================================
+   СЕТКА
+   ============================================ */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.col-3  { grid-column: span 3; }
+.col-4  { grid-column: span 4; }
+.col-6  { grid-column: span 6; }
+.col-8  { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+
+/* ============================================
+   ГРАФИКИ
+   ============================================ */
+
+.chart-container {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-lg);
+  min-height: 320px;
+}
+
+.chart-title {
+  font-size: var(--font-size-h3);
+  font-weight: 500;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-primary);
+}
+
+.chart-legend {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+  font-size: var(--font-size-body2);
+}
+
+.chart-legend__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.chart-legend__marker {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================
+   ТАБЛИЦЫ
+   ============================================ */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  text-align: left;
+  padding: var(--spacing-md);
+  font-size: var(--font-size-body2);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.data-table td {
+  padding: var(--spacing-md);
+  font-size: var(--font-size-body2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.data-table td.numeric {
+  font-family: var(--font-family-mono);
+  text-align: right;
+}
+
+.data-table tr:hover {
+  background-color: var(--color-primary-light);
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 1366px) {
+  .col-3 { grid-column: span 6; }
+  .col-4 { grid-column: span 6; }
+  .sidebar { width: var(--sidebar-collapsed); }
+  .main-content { margin-left: var(--sidebar-collapsed); }
+}
+
+@media (max-width: 1024px) {
+  .col-3, .col-4, .col-6, .col-8 { grid-column: span 12; }
+  .page-content { padding: var(--spacing-md); }
+}
